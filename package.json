@@ -1,10 +1,9 @@
 {
   "name": "makerAPI",
-  "version": "0.1",
   "description": "A test REST API",
   "repository" :
   { "type" : "git"
-  , "url" : "https://github.com/nickern/RestAPI.git"
+  , "url" : "https://github.com/MakerManagement/Rest-API.git"
   },
   "main": "server.js",
   "dependencies": {
