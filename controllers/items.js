@@ -2,7 +2,7 @@
 var Item = require('../models/item');
 
 // Create endpoint /api/items for POSTS
-exports.postItems(function(req, res) {
+exports.postItems = function(req, res) {
   // Create a new instance of the Item model
   var item = new Item();
 
@@ -20,10 +20,10 @@ exports.postItems(function(req, res) {
 
     res.json({ message: 'item added to the locker!', data: item });
   });
-});
+};
 
 // Create endpoint /api/items for GET
-exports.getItems(function(req, res) {
+exports.getItems = function(req, res) {
   // Use the Item model to find all items
   Item.find(function(err, items) {
     if (err)
@@ -31,10 +31,10 @@ exports.getItems(function(req, res) {
 
     res.json(items);
   });
-});
+};
 
 // Create endpoint /api/items/:item_id for GET
-exports.getItem(function(req, res) {
+exports.getItem = function(req, res) {
   // Use the Item model to find a specific item
   Item.findById(req.params.item_id, function(err, item) {
     if (err)
@@ -42,9 +42,9 @@ exports.getItem(function(req, res) {
 
     res.json(item);
   });
-});
+};
 
-exports.putItem(function(req, res) {
+exports.putItem = function(req, res) {
   // Use the Item model to find a specific item
   Item.findById(req.params.item_id, function(err, item) {
     if (err)
@@ -61,9 +61,9 @@ exports.putItem(function(req, res) {
       res.json(item);
     });
   });
-});
+};
 
-exports.deleteItem(function(req, res) {
+exports.deleteItem = function(req, res) {
   // Use the Item model to find a specific item and remove it
   Item.findByIdAndRemove(req.params.item_id, function(err) {
     if (err)
@@ -71,4 +71,4 @@ exports.deleteItem(function(req, res) {
 
     res.json({ message: 'Item removed from the locker!' });
   });
-});
+};
