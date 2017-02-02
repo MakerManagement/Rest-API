@@ -4,7 +4,7 @@ var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 
 // Load controllers
-var itemController = require('./controllers/item')
+var itemController = require('./controllers/items')
 
 // Connect to the api MongoDB
 mongoose.connect('mongodb://localhost:27017/api');
@@ -33,7 +33,7 @@ router.get('/', function(req, res) {
 router.route('/items')
   .post(itemController.postItems)
   .get(itemController.getItems);
-  
+
 // Create endpoint prefix /items/:item_id
 router.route('/items/:item_id')
   .get(itemController.getItem)
@@ -41,7 +41,7 @@ router.route('/items/:item_id')
   .delete(itemController.deleteItem);
 
 // Register all our routes with /api
-app.use('/', router);
+app.use('/api', router);
 
 // Start the server
 app.listen(port);
