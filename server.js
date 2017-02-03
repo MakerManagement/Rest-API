@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 var itemController = require('./controllers/items')
 
 // Connect to the api MongoDB
+mongoose.Promise = require('bluebird');
 mongoose.connect('mongodb://localhost:27017/api');
 
 // Create our Express application

@@ -1,13 +1,14 @@
 {
   "name": "makerAPI",
   "description": "A test REST API",
-  "repository" :
-  { "type" : "git"
-  , "url" : "https://github.com/MakerManagement/Rest-API.git"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MakerManagement/Rest-API.git"
   },
   "main": "server.js",
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
+    "bluebird": "^3.4.7",
     "body-parser": "^1.15.2",
     "express": "^4.14.0",
     "mongoose": "^4.7.5",
