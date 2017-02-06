@@ -2,13 +2,14 @@
 var express = require('express');
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
+var config = require('./config');
 
 // Load controllers
 var itemController = require('./controllers/items')
 
-// Connect to the api MongoDB
+// Connect to the database
 mongoose.Promise = require('bluebird');
-mongoose.connect('mongodb://localhost:27017/api');
+mongoose.connect('mongodb://' + config.database.host + ':' + config.database.port + '/' + config.database.db_name);
 
 // Create our Express application
 var app = express();
@@ -18,14 +19,10 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
 
-// Use environment defined port or 8000
-var port = process.env.PORT || 8000;
-
-// Create our Express router
+var port = config.web.port;
 var router = express.Router();
 
 // Initial dummy route for testing
-// http://localhost:1337/api
 router.get('/', function(req, res) {
   res.json({ message: 'Hello World!!' });
 });
@@ -41,8 +38,7 @@ router.route('/items/:item_id')
   .put(itemController.putItem)
   .delete(itemController.deleteItem);
 
-// Register all our routes with /api
-app.use('/api', router);
+app.use(config.web.url, router);
 
 // Start the server
 app.listen(port);
