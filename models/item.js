@@ -4,9 +4,15 @@ var mongoose = require('mongoose');
 // Define our item schema
 var ItemSchema   = new mongoose.Schema({
   item_name: { type: String, unique: true, required: true },
-  description: String,
+  description: {
+    eng: String,
+    nor: String
+  },
+  amount: Number,
+  categories: [{type: Schema.Types.ObjectId, ref: 'Category'}],
+  tags:  [{type: Schema.Types.ObjectId, ref: 'Tag'}],
+  location: {type: Schema.Types.ObjectId, ref: 'Location'},
   image_url: String,
-  box_id: Number,
   quantity: Number
 });
 
