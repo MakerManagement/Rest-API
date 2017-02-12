@@ -1,7 +1,6 @@
 ---
 title: 'Response status codes'
 
-layout: nil
 ---
 
 ### Success
