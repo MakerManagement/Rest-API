@@ -2,7 +2,9 @@
 var express = require('express');
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
+// Load config file
 var config = require('./config');
+// Load all routes
 var routes = require('./routes');
 
 // Connect to the database
@@ -13,11 +15,9 @@ if(config.database.authentication) {
   mongoose.connect('mongodb://' + config.database.host + ':' + config.database.port + '/' + config.database.db_name);
 }
 
-
-// Create our Express application
 var app = express();
 
-// Use the body-parser package in our application
+// Use the body-parser package to parse incomming json files
 app.use(bodyParser.json({
   extended: true
 }));
