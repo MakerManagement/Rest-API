@@ -5,27 +5,36 @@ var Item = require('../models/item');
 exports.postItems = function(req, res) {
   // Create a new instance of the Item model
   var item = new Item();
-
+  console.log(req.body);
   // Set the item properties that came from the POST data
   item.item_name = req.body.item_name;
   item.description = req.body.description;
+  //item.description.nor = req.body.description.nor;
+  item.categories = req.body.categories;
+  item.tags = req.body.tags;
+  item.locale = req.body.locale;
   item.image_url = req.body.image_url;
-  item.box_id = req.body.box_id;
-  item.quantity = req.body.quantity;
+  item.amount = req.body.amount;
 
   // Save the item and check for errors
   item.save(function(err) {
-    if (err)
+    if (err) {
+      if(err.code == 11000) {
+        res.json({ message: 'Item already exists!!', data: err });
+		return;
+	  }
       res.send(err);
+	}
+	
 
-    res.json({ message: 'item added to the locker!', data: item });
+    res.json({ message: 'item added!', data: item });
   });
 };
 
 // Create endpoint /api/items for GET
 exports.getItems = function(req, res) {
   // Use the Item model to find all items
-  Item.find(function(err, items) {
+  Item.find().populate('tags').exec (function(err, items) {
     if (err)
       res.send(err);
 
@@ -36,12 +45,12 @@ exports.getItems = function(req, res) {
 // Create endpoint /api/items/:item_id for GET
 exports.getItem = function(req, res) {
   // Use the Item model to find a specific item
-  Item.findById(req.params.item_id, function(err, item) {
-    if (err)
-      res.send(err);
-
-    res.json(item);
-  });
+  Item.findById(req.params.item_id).populate('tags').exec (function (err, item) {
+	if (err)
+      res.send(err)
+    
+	res.json({item});
+    });
 };
 
 exports.putItem = function(req, res) {
@@ -69,6 +78,6 @@ exports.deleteItem = function(req, res) {
     if (err)
       res.send(err);
 
-    res.json({ message: 'Item removed from the locker!' });
+    res.json({ message: 'Item removed!' });
   });
 };

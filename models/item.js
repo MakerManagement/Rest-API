@@ -8,10 +8,9 @@ var ItemSchema   = new mongoose.Schema({
     eng: String,
     nor: String
   },
-  amount: Number,
-  categories: [{type: Schema.Types.ObjectId, ref: 'Category'}],
-  tags:  [{type: Schema.Types.ObjectId, ref: 'Tag'}],
-  location: {type: Schema.Types.ObjectId, ref: 'Location'},
+  categories: [{type: mongoose.Schema.ObjectId, ref: 'Category'}],
+  tags:  [{type: mongoose.Schema.ObjectId, ref: 'Tag'}],
+  locale: {type: mongoose.Schema.ObjectId, ref: 'Location'},
   image_url: String,
   quantity: Number
 });
