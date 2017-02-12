@@ -1,7 +1,6 @@
 // Load required packages
 var Tag = require('../models/tag');
 
-// Create endpoint /api/tags for POSTS
 exports.postTags = function(req, res) {
   // Create a new instance of the Tag model
   var tag = new Tag();
@@ -24,7 +23,6 @@ exports.postTags = function(req, res) {
   });
 };
 
-// Create endpoint /api/tags for GET
 exports.getTags = function(req, res) {
   // Use the Tag model to find all tags
   Tag.find(function(err, tags) {
@@ -35,7 +33,6 @@ exports.getTags = function(req, res) {
   });
 };
 
-// Create endpoint /api/tags/:tag_id for GET
 exports.getTag = function(req, res) {
   // Use the Tag model to find a specific tag
   Tag.findById(req.params.tag_id, function(err, tag) {

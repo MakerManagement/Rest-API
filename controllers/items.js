@@ -1,15 +1,13 @@
 // Load required packages
 var Item = require('../models/item');
 
-// Create endpoint /api/items for POSTS
 exports.postItems = function(req, res) {
   // Create a new instance of the Item model
   var item = new Item();
-  console.log(req.body);
+
   // Set the item properties that came from the POST data
   item.item_name = req.body.item_name;
   item.description = req.body.description;
-  //item.description.nor = req.body.description.nor;
   item.categories = req.body.categories;
   item.tags = req.body.tags;
   item.locale = req.body.locale;
@@ -31,10 +29,9 @@ exports.postItems = function(req, res) {
   });
 };
 
-// Create endpoint /api/items for GET
 exports.getItems = function(req, res) {
   // Use the Item model to find all items
-  Item.find().populate('tags').exec (function(err, items) {
+  Item.find().populate('tags').populate('locale').populate('categories').exec (function(err, items) {
     if (err)
       res.send(err);
 
@@ -42,10 +39,9 @@ exports.getItems = function(req, res) {
   });
 };
 
-// Create endpoint /api/items/:item_id for GET
 exports.getItem = function(req, res) {
   // Use the Item model to find a specific item
-  Item.findById(req.params.item_id).populate('tags').exec (function (err, item) {
+  Item.findById(req.params.item_id).populate('tags').populate('locale').populate('categories').exec (function (err, item) {
 	if (err)
       res.send(err)
     
@@ -60,7 +56,13 @@ exports.putItem = function(req, res) {
       res.send(err);
 
     // Update the existing item quantity
-    item.quantity = req.body.quantity;
+      item.item_name = req.body.item_name;
+      item.description = req.body.description;
+      item.categories = req.body.categories;
+      item.tags = req.body.tags;
+      item.locale = req.body.locale;
+      item.image_url = req.body.image_url;
+      item.amount = req.body.amount;
 
     // Save the item and check for errors
     item.save(function(err) {

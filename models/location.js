@@ -3,8 +3,7 @@ var mongoose = require('mongoose');
 
 // Define our location schema
 var LocationSchema   = new mongoose.Schema({
-  location_id: mongoose.Schema.ObjectId,
-  location: String
+  locale: String
 });
 
 // Export the Mongoose model

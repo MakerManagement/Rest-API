@@ -4,6 +4,7 @@ var express = require('express');
 var itemController = require('./controllers/items');
 var tagController = require('./controllers/tags');
 var locationController = require('./controllers/locations');
+var categoryController = require('./controllers/categories');
 
 var router = express.Router();
 
@@ -44,5 +45,16 @@ router.route('/locations/:location_id')
   .get(locationController.getLocation)
   .put(locationController.putLocation)
   .delete(locationController.deleteLocation);
+  
+// Create endpoint prefix /categories
+router.route('/categories')
+  .post(categoryController.postCategories)
+  .get(categoryController.getCategories);
+
+// Create endpoint prefix /categories/:category_id
+router.route('/categories/:category_id')
+  .get(categoryController.getCategory)
+  .put(categoryController.putCategory)
+  .delete(categoryController.deleteCategory);
 
 module.exports = router;

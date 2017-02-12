@@ -1,13 +1,12 @@
 // Load required packages
 var Location = require('../models/location');
 
-// Create endpoint /api/locations for POSTS
 exports.postLocations = function(req, res) {
   // Create a new instance of the Location model
   var location = new Location();
 
   // Set the location properties that came from the POST data
-  location.location = req.body.location;
+  location.locale = req.body.locale;
 
   // Save the location and check for errors
   location.save(function(err) {
@@ -24,7 +23,6 @@ exports.postLocations = function(req, res) {
   });
 };
 
-// Create endpoint /api/locations for GET
 exports.getLocations = function(req, res) {
   // Use the Location model to find all locations
   Location.find(function(err, locations) {
@@ -35,7 +33,6 @@ exports.getLocations = function(req, res) {
   });
 };
 
-// Create endpoint /api/locations/:location_id for GET
 exports.getLocation = function(req, res) {
   // Use the Location model to find a specific location
   Location.findById(req.params.location_id, function(err, location) {
@@ -53,7 +50,7 @@ exports.putLocation = function(req, res) {
       res.send(err);
 
     // Update the existing location language values
-    location.location = req.body.location;
+    location.locale = req.body.locale;
 
     // Save the location and check for errors
     location.save(function(err) {

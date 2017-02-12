@@ -3,7 +3,6 @@ var mongoose = require('mongoose');
 
 // Define our tag schema
 var TagSchema   = new mongoose.Schema({
-  tag_id: mongoose.Schema.ObjectId,
   tag: {
     eng: String,
     nor: String
