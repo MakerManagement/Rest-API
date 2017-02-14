@@ -19,7 +19,7 @@ exports.postTags = function(req, res) {
 	}
 	
 
-    res.json({ message: 'Tag added!', data: tag });
+    res.status(201).json({ message: 'Tag added!', data: tag });
   });
 };
 
@@ -38,8 +38,11 @@ exports.getTag = function(req, res) {
   Tag.findById(req.params.tag_id, function(err, tag) {
     if (err)
       res.send(err);
-
-    res.json(tag);
+    if (tag == null) {
+      res.status(404).send({error: 'Did not find any tag with id: ' + req.params.tag_id});
+    } else {
+      res.json(tag);
+	}
   });
 };
 
@@ -48,6 +51,8 @@ exports.putTag = function(req, res) {
   Tag.findById(req.params.tag_id, function(err, tag) {
     if (err)
       res.send(err);
+    if (tag == null)
+      res.status(404).send({error: 'Did not find any tag with id: ' + req.params.tag_id});
 
     // Update the existing tag language values
     tag.tag = req.body.tag;
@@ -64,10 +69,13 @@ exports.putTag = function(req, res) {
 
 exports.deleteTag = function(req, res) {
   // Use the Tag model to find a specific tag and remove it
-  Tag.findByIdAndRemove(req.params.tag_id, function(err) {
+  Tag.findByIdAndRemove(req.params.tag_id, function(err, tag) {
     if (err)
       res.send(err);
-
-    res.json({ message: 'Tag removed!' });
+    if (tag == null) {
+      res.status(404).send({error: 'Did not find any tag with id: ' + req.params.tag_id});
+    } else {
+      res.json({ message: 'Tag removed!' });
+	}
   });
 };

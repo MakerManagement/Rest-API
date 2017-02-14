@@ -19,7 +19,7 @@ exports.postLocations = function(req, res) {
 	}
 	
 
-    res.json({ message: 'Location added!', data: location });
+    res.status(201).json({ message: 'Location added!', data: location });
   });
 };
 
@@ -38,6 +38,8 @@ exports.getLocation = function(req, res) {
   Location.findById(req.params.location_id, function(err, location) {
     if (err)
       res.send(err);
+    if (location == null)
+      res.status(404).send({error: 'Did not find any location with id: ' + req.params.location_id});
 
     res.json(location);
   });
@@ -48,6 +50,8 @@ exports.putLocation = function(req, res) {
   Location.findById(req.params.location_id, function(err, location) {
     if (err)
       res.send(err);
+    if (location == null)
+      res.status(404).send({error: 'Did not find any location with id: ' + req.params.location_id});
 
     // Update the existing location language values
     location.locale = req.body.locale;
@@ -64,9 +68,11 @@ exports.putLocation = function(req, res) {
 
 exports.deleteLocation = function(req, res) {
   // Use the Location model to find a specific location and remove it
-  Location.findByIdAndRemove(req.params.location_id, function(err) {
+  Location.findByIdAndRemove(req.params.location_id, function(err, location) {
     if (err)
       res.send(err);
+    if (location == null)
+      res.status(404).send({error: 'Did not find any location with id: ' + req.params.location_id});
 
     res.json({ message: 'Location removed!' });
   });

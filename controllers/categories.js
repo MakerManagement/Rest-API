@@ -19,7 +19,7 @@ exports.postCategories = function(req, res) {
 	}
 	
 
-    res.json({ message: 'Category added!', data: category });
+    res.status(201).json({ message: 'Category added!', data: category });
   });
 };
 
@@ -35,21 +35,26 @@ exports.getCategories = function(req, res) {
 
 exports.getCategory = function(req, res) {
   // Use the Category model to find a specific category
-  Category.findById(req.params.location_id, function(err, category) {
+  Category.findById(req.params.category_id, function(err, category) {
     if (err)
       res.send(err);
-
-    res.json(category);
+    if (category == null) {
+      res.status(404).send({error: 'Did not find any category with id: ' + req.params.category_id});
+	} else {
+      res.json(category);
+	}
   });
 };
 
 exports.putCategory = function(req, res) {
   // Use the Category model to find a specific category
-  Category.findById(req.params.location_id, function(err, category) {
+  Category.findById(req.params.category_id, function(err, category) {
     if (err)
       res.send(err);
-	console.log(req.body);
-    // Update the existing category language values
+    if (category == null)
+      res.status(404).send({error: 'Did not find any category with id: ' + req.params.category_id});
+
+  // Update the existing category language values
     category.category = req.body.category;
 
     // Save the category and check for errors
@@ -64,10 +69,13 @@ exports.putCategory = function(req, res) {
 
 exports.deleteCategory = function(req, res) {
   // Use the Category model to find a specific category and remove it
-  Category.findByIdAndRemove(req.params.location_id, function(err) {
+  Category.findByIdAndRemove(req.params.category_id, function(err, category) {
     if (err)
       res.send(err);
-
-    res.json({ message: 'Category removed!' });
+    if (category == null) {
+      res.status(404).send({error: 'Did not find any category with id: ' + req.params.category_id});
+	} else {
+      res.json({ message: 'Category removed!', data: category });
+	}
   });
 };

@@ -25,7 +25,7 @@ exports.postItems = function(req, res) {
 	}
 	
 
-    res.json({ message: 'item added!', data: item });
+    res.status(201).json({ message: 'item added!', data: item });
   });
 };
 
@@ -44,6 +44,8 @@ exports.getItem = function(req, res) {
   Item.findById(req.params.item_id).populate('tags').populate('locale').populate('categories').exec (function (err, item) {
 	if (err)
       res.send(err)
+    if (item == null)
+      res.status(404).send({error: 'Did not find any item with id: ' + req.params.item_id});
     
 	res.json({item});
     });
@@ -54,6 +56,8 @@ exports.putItem = function(req, res) {
   Item.findById(req.params.item_id, function(err, item) {
     if (err)
       res.send(err);
+    if (item == null)
+      res.status(404).send({error: 'Did not find any item with id: ' + req.params.item_id});
 
     // Update the existing item quantity
       item.item_name = req.body.item_name;
@@ -76,9 +80,11 @@ exports.putItem = function(req, res) {
 
 exports.deleteItem = function(req, res) {
   // Use the Item model to find a specific item and remove it
-  Item.findByIdAndRemove(req.params.item_id, function(err) {
+  Item.findByIdAndRemove(req.params.item_id, function(err, item) {
     if (err)
       res.send(err);
+    if (item == null)
+      res.status(404).send({error: 'Did not find any item with id: ' + req.params.item_id});
 
     res.json({ message: 'Item removed!' });
   });
