@@ -2,11 +2,11 @@
 var mongoose = require('mongoose');
 
 // Define our tag schema
-var TagSchema   = new mongoose.Schema({
-  tag: {
-    en: String,
-    no: String
-  }
+var TagSchema = new mongoose.Schema({
+    tag: {
+        en: String,
+        no: String
+    }
 });
 
 // Export the Mongoose model

@@ -2,8 +2,8 @@
 var mongoose = require('mongoose');
 
 // Define our location schema
-var LocationSchema   = new mongoose.Schema({
-  locale: String
+var LocationSchema = new mongoose.Schema({
+    locale: String
 });
 
 // Export the Mongoose model
