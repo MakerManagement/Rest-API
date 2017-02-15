@@ -4,8 +4,8 @@ var mongoose = require('mongoose');
 // Define our category schema
 var CategorySchema   = new mongoose.Schema({
   category: {
-    eng: String,
-    nor: String
+    en: String,
+    no: String
   }
 });
 
