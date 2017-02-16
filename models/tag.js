@@ -4,7 +4,7 @@ var mongoose = require('mongoose');
 // Define our tag schema
 var TagSchema = new mongoose.Schema({
     tag: {
-        en: String,
+        en: {type: String, required: true},
         no: String
     }
 });

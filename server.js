@@ -8,14 +8,29 @@ var config = require('./config');
 var routes = require('./routes');
 
 // Connect to the database
-mongoose.Promise = require('bluebird');
+var connectString = 'mongodb://';
 if (config.database.authentication) {
-    mongoose.connect('mongodb://' + config.database.username + ':' + config.database.password + '@' + config.database.host + ':' + config.database.port + '/' + config.database.db_name);
+    connectString += config.database.username + ':' + config.database.password + '@' + config.database.host + ':' + config.database.port + '/' + config.database.db_name;
 } else {
-    mongoose.connect('mongodb://' + config.database.host + ':' + config.database.port + '/' + config.database.db_name);
+    connectString += config.database.host + ':' + config.database.port + '/' + config.database.db_name;
 }
 
+mongoose.Promise = require('bluebird');
+mongoose.connect(connectString);
+
+
+// Fix for getting info via JavaScript (web front-end)
+var allowCrossDomain = function (req, res, next) {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+    res.header('Access-Control-Allow-Headers', 'Content-Type');
+
+    next();
+}
+
+
 var app = express();
+app.use(allowCrossDomain);
 
 // Use the body-parser package to parse incomming json files
 app.use(bodyParser.json({
