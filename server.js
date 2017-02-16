@@ -20,6 +20,7 @@ mongoose.connect(connectString);
 
 
 // Fix for getting info via JavaScript (web front-end)
+// Copied here: http://stackoverflow.com/questions/7067966/how-to-allow-cors
 var allowCrossDomain = function (req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
