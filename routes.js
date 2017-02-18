@@ -5,6 +5,7 @@ var itemController = require('./controllers/items');
 var tagController = require('./controllers/tags');
 var locationController = require('./controllers/locations');
 var categoryController = require('./controllers/categories');
+var userController = require('./controllers/users');
 
 var router = express.Router();
 
@@ -56,5 +57,10 @@ router.route('/categories/:category_id')
     .get(categoryController.getCategory)
     .put(categoryController.putCategory)
     .delete(categoryController.deleteCategory);
+
+// Create endpoint handlers for /users
+router.route('/users')
+    .post(userController.postUsers)
+    .get(authController.isAuthenticated, userController.getUsers);
 
 module.exports = router;

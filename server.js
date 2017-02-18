@@ -2,6 +2,8 @@
 var express = require('express');
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
+var passport = require('passport');
+
 // Load config file
 var config = require('./config');
 // Load all routes
@@ -32,6 +34,8 @@ var allowCrossDomain = function (req, res, next) {
 
 var app = express();
 app.use(allowCrossDomain);
+app.use(passport.initialize());
+
 
 // Use the body-parser package to parse incomming json files
 app.use(bodyParser.json({
