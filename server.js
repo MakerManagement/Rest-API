@@ -17,7 +17,7 @@ if (config.database.authentication) {
     connectString += config.database.host + ':' + config.database.port + '/' + config.database.db_name;
 }
 
-mongoose.Promise = require('bluebird');
+mongoose.Promise = global.Promise;
 mongoose.connect(connectString);
 
 

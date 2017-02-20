@@ -4,7 +4,7 @@ var bcrypt = require('bcrypt');
 
 // Define our tag schema
 var UserSchema = new mongoose.Schema({
-    name: { type: String, required: true },
+    username: { type: String, required: true },
     password: { type: String, required: true }
 });
 
@@ -28,11 +28,9 @@ UserSchema.pre('save', function (next) {
     }
 });
 
-UserSchema.methods.comparePassword = function (passw, cb) {
-    bcrypt.compare(passw, this.password, function (err, isMatch) {
-        if (err) {
-            return cb(err);
-        }
+UserSchema.methods.verifyPassword = function(password, cb) {
+    bcrypt.compare(password, this.password, function(err, isMatch) {
+        if (err) return cb(err);
         cb(null, isMatch);
     });
 };

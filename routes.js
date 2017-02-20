@@ -6,6 +6,7 @@ var tagController = require('./controllers/tags');
 var locationController = require('./controllers/locations');
 var categoryController = require('./controllers/categories');
 var userController = require('./controllers/users');
+var authController = require('./controllers/auth');
 
 var router = express.Router();
 
