@@ -27,6 +27,7 @@ exports.getLocations = function (req, res) {
     Location.find(function (err, locations) {
         if (err) {
             res.send(err);
+			return;
         } else {
             res.json(locations);
         }
@@ -38,6 +39,7 @@ exports.getLocation = function (req, res) {
     Location.findById(req.params.location_id, function (err, location) {
         if (err)
             res.send(err);
+			return;
         if (location == null) {
             res.status(404).send({error: 'Did not find any location with id: ' + req.params.location_id});
         } else {
@@ -51,6 +53,7 @@ exports.putLocation = function (req, res) {
     Location.findById(req.params.location_id, function (err, location) {
         if (err)
             res.send(err);
+			return;
         if (location == null) {
             res.status(404).send({error: 'Did not find any location with id: ' + req.params.location_id});
             return;
@@ -75,6 +78,7 @@ exports.deleteLocation = function (req, res) {
     Location.findByIdAndRemove(req.params.location_id, function (err, location) {
         if (err)
             res.send(err);
+			return;
         if (location == null)
             res.status(404).send({error: 'Did not find any location with id: ' + req.params.location_id});
 

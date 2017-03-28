@@ -44,6 +44,7 @@ exports.getItem = function (req, res) {
     Item.findById(req.params.item_id).populate('tags').populate('locale').populate('categories').exec(function (err, item) {
         if (err) {
             res.send(err)
+			return;
         }
         if (item == null) {
             res.status(404).send({error: 'Did not find any item with id: ' + req.params.item_id});
@@ -58,6 +59,7 @@ exports.putItem = function (req, res) {
     Item.findById(req.params.item_id, function (err, item) {
         if (err)
             res.send(err);
+			return;
         if (item == null) {
             res.status(404).send({error: 'Did not find any item with id: ' + req.params.item_id});
             return;
@@ -76,6 +78,7 @@ exports.putItem = function (req, res) {
         item.save(function (err) {
             if (err) {
                 res.send(err);
+				return;
             } else {
                 res.json(item);
             }
@@ -88,6 +91,7 @@ exports.deleteItem = function (req, res) {
     Item.findByIdAndRemove(req.params.item_id, function (err, item) {
         if (err)
             res.send(err);
+			return;
         if (item == null) {
             res.status(404).send({error: 'Did not find any item with id: ' + req.params.item_id});
         } else {

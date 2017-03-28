@@ -27,6 +27,7 @@ exports.getCategories = function (req, res) {
     Category.find(function (err, categories) {
         if (err) {
             res.send(err);
+			return;
         } else {
             res.json(categories);
         }
@@ -38,6 +39,7 @@ exports.getCategory = function (req, res) {
     Category.findById(req.params.category_id, function (err, category) {
         if (err)
             res.send(err);
+			return;
         if (category == null) {
             res.status(404).send({error: 'Did not find any category with id: ' + req.params.category_id});
         } else {
@@ -51,6 +53,7 @@ exports.putCategory = function (req, res) {
     Category.findById(req.params.category_id, function (err, category) {
         if (err)
             res.send(err);
+			return;
         if (category == null) {
             res.status(404).send({error: 'Did not find any category with id: ' + req.params.category_id});
             return;
@@ -63,6 +66,7 @@ exports.putCategory = function (req, res) {
         category.save(function (err) {
             if (err) {
                 res.send(err);
+				return;
             } else {
                 res.json(category);
             }
@@ -75,6 +79,7 @@ exports.deleteCategory = function (req, res) {
     Category.findByIdAndRemove(req.params.category_id, function (err, category) {
         if (err)
             res.send(err);
+			return;
         if (category == null) {
             res.status(404).send({error: 'Did not find any category with id: ' + req.params.category_id});
         } else {

@@ -38,6 +38,7 @@ exports.getTag = function (req, res) {
     Tag.findById(req.params.tag_id, function (err, tag) {
         if (err)
             res.send(err);
+			return;
         if (tag == null) {
             res.status(404).send({error: 'Did not find any tag with id: ' + req.params.tag_id});
         } else {
@@ -51,6 +52,7 @@ exports.putTag = function (req, res) {
     Tag.findById(req.params.tag_id, function (err, tag) {
         if (err)
             res.send(err);
+			return;
         if (tag == null) {
             res.status(404).send({error: 'Did not find any tag with id: ' + req.params.tag_id});
             return;
