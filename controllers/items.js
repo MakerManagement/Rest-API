@@ -1,5 +1,6 @@
 // Load required packages
 var Item = require('../models/item');
+var ObjectId = require('mongoose').Types.ObjectId; 
 
 exports.postItems = function (req, res) {
     // Create a new instance of the Item model
@@ -41,7 +42,7 @@ exports.getItems = function (req, res) {
 
 exports.getItemsWithCategory = function (req, res) {
     // Use the Item model to find all items
-    Item.find({categories: ObjectId(req.params.category_id)}).populate('tags').populate('locale').populate('categories').exec(function (err, items) {
+    Item.find({"categories": req.params.category_id}).populate('tags').populate('locale').populate('categories').exec(function (err, items) {
         if (err) {
             res.send(err);
         } else {
