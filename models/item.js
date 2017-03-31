@@ -8,10 +8,6 @@ var ItemSchema = new mongoose.Schema({
         en: String,
         no: String
     },
-    short_description: {
-        en: String,
-        no: String
-    },
     categories: [{type: mongoose.Schema.ObjectId, ref: 'Category'}],
     tags: [{type: mongoose.Schema.ObjectId, ref: 'Tag'}],
     locale: {type: mongoose.Schema.ObjectId, ref: 'Location'},

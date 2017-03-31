@@ -12,7 +12,7 @@ exports.postItems = function (req, res) {
     item.tags = req.body.tags;
     item.locale = req.body.locale;
     item.image_url = req.body.image_url;
-    item.amount = req.body.amount;
+    item.quantity = req.body.quantity;
 
     // Save the item and check for errors
     item.save(function (err) {
