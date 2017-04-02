@@ -23,6 +23,10 @@ router.route('/items/:item_id')
     .get(itemController.getItem)
     .put(itemController.putItem)
     .delete(itemController.deleteItem);
+	
+// Create endpoint prefix /items/category/:category_id
+router.route('/items/category/:category_id')
+    .get(itemController.getItemsWithCategory);
 
 // Create endpoint prefix /tags
 router.route('/tags')
