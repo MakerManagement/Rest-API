@@ -68,10 +68,7 @@ exports.getItem = function (req, res) {
 
 exports.putItem = function (req, res) {
     // Use the Item model to find a specific item
-    Item.findById(req.params.item_id, function (err, item) {
-        if (err)
-            res.send(err);
-			return;
+    Item.findById(req.params.item_id, function (err, item) {            
         if (item == null) {
             res.status(404).send({error: 'Did not find any item with id: ' + req.params.item_id});
             return;
@@ -101,9 +98,10 @@ exports.putItem = function (req, res) {
 exports.deleteItem = function (req, res) {
     // Use the Item model to find a specific item and remove it
     Item.findByIdAndRemove(req.params.item_id, function (err, item) {
-        if (err)
+        if (err) {
             res.send(err);
 			return;
+		}
         if (item == null) {
             res.status(404).send({error: 'Did not find any item with id: ' + req.params.item_id});
         } else {
