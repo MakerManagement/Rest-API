@@ -74,18 +74,21 @@ exports.putItem = function (req, res) {
             return;
         }
 
-        // Update the existing item quantity
+        // Update the existing item
         item.item_name = req.body.item_name;
         item.description = req.body.description;
         item.categories = req.body.categories;
         item.tags = req.body.tags;
         item.locale = req.body.locale;
         item.image_url = req.body.image_url;
-        item.amount = req.body.amount;
+        item.quantity = req.body.quantity;
 
         // Save the item and check for errors
         item.save(function (err) {
             if (err) {
+				if (err.code == 11000) {
+					res.status(409).send({error: 'Duplicate item found!'});
+				}
                 res.send(err);
 				return;
             } else {
